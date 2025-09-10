@@ -38,8 +38,8 @@ function Hero() {
             across multiple profiles in one click.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button className="bg-brand text-black hover:bg-brand/90">
-              Get Started
+            <Button className="bg-brand text-black hover:bg-brand/90" asChild>
+              <a href="#demo">Get Started</a>
             </Button>
           </div>
           <ul className="text-muted-foreground/90 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
