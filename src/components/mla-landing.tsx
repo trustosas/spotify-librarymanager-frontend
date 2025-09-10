@@ -276,6 +276,85 @@ function Faq() {
   );
 }
 
+function RunningActivity() {
+  const [items, setItems] = useState([
+    { id: 'a', icon: Repeat2, name: 'Sync playlists', detail: 'Indie Mix ↔ Focus Beats', progress: 18, status: 'running' as const },
+    { id: 'b', icon: Upload, name: 'Transfer playlist', detail: 'Chill Vibes → New account', progress: 42, status: 'running' as const },
+    { id: 'c', icon: Sparkles, name: 'Cleanup duplicates', detail: 'Library hygiene', progress: 100, status: 'done' as const }
+  ]);
+
+  useMemo(() => {
+    const interval = window.setInterval(() => {
+      setItems((prev) =>
+        prev.map((it) => {
+          if (it.status !== 'running') return it;
+          const next = Math.min(100, it.progress + Math.floor(Math.random() * 8 + 2));
+          return { ...it, progress: next, status: next >= 100 ? 'done' : 'running' };
+        })
+      );
+    }, 1200);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
+      <div className="mb-6 flex items-end justify-between">
+        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Running activity</h2>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {items.map((it) => {
+          const Icon = it.icon;
+          const done = it.status === 'done';
+          return (
+            <Card key={it.id}>
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex size-8 items-center justify-center rounded-md bg-brand text-black"><Icon className="size-4"/></span>
+                    <div>
+                      <CardTitle className="text-base">{it.name}</CardTitle>
+                      <CardDescription>{it.detail}</CardDescription>
+                    </div>
+                  </div>
+                  <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs ${done ? 'bg-muted text-muted-foreground' : 'bg-brand text-black'}`}>
+                    {done ? 'Completed' : 'Running'}
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-2 flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Progress</span>
+                  <span className="font-medium">{it.progress}%</span>
+                </div>
+                <Progress value={it.progress} />
+                <div className="mt-3 flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-brand text-brand hover:bg-brand/10"
+                    disabled={done}
+                    onClick={() => setItems((prev) => prev.map((x) => x.id === it.id ? { ...x, status: 'done', progress: 100 } : x))}
+                  >
+                    Mark done
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    className="text-muted-foreground hover:text-foreground"
+                    onClick={() => setItems((prev) => prev.filter((x) => x.id !== it.id))}
+                  >
+                    <X className="size-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function HowItWorks() {
   return (
     <section id="how" className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
