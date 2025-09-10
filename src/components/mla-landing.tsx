@@ -455,7 +455,7 @@ function Footer() {
     <footer className="mt-10 border-t">
       <div className="mx-auto max-w-7xl px-3 py-6 text-sm text-muted-foreground sm:px-6">
         <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} Music Library Assistant</p>
+          <p className="-translate-y-2.5">© {new Date().getFullYear()} Music Library Assistant</p>
           <div className="flex flex-wrap items-center gap-3">
             <span>Free forever</span>
             <a href="#privacy" className="hover:underline">Privacy</a>
