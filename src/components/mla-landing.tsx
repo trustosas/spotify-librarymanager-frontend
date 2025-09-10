@@ -35,7 +35,7 @@ function Hero() {
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button className="bg-brand text-black hover:bg-brand/90">
-              Start your 7‑day free trial
+              Use for free
             </Button>
             <Button variant="outline" className="border-brand text-brand hover:bg-brand/10">
               See how it works
@@ -219,64 +219,24 @@ function Pricing() {
   return (
     <section id="pricing" className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
       <div className="mb-6 text-center">
-        <h2 className="text-2xl font-bold sm:text-3xl">Simple pricing</h2>
-        <p className="text-muted-foreground">Start free, upgrade when you need more.</p>
+        <h2 className="text-2xl font-bold sm:text-3xl">Free forever</h2>
+        <p className="text-muted-foreground">All features, no payments.</p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Card className="border-brand/40">
+      <div className="grid gap-4 sm:max-w-lg sm:mx-auto">
+        <Card className="border-brand">
           <CardHeader>
-            <CardTitle>Hobby</CardTitle>
-            <CardDescription>For casual listeners</CardDescription>
+            <CardTitle>Free</CardTitle>
+            <CardDescription>All features, free forever</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 text-3xl font-bold">$0<span className="text-base font-normal text-muted-foreground">/mo</span></p>
             <ul className="grid gap-2 text-sm">
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> 1 transfer / month</li>
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> 2 synced playlists</li>
+              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Unlimited transfers</li>
+              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Unlimited synced playlists</li>
               <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Email support</li>
             </ul>
           </CardContent>
           <CardFooter>
-            <Button className="w-full bg-brand text-black hover:bg-brand/90">Choose Hobby</Button>
-          </CardFooter>
-        </Card>
-        <Card className="border-brand">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle>Pro</CardTitle>
-                <CardDescription>For power users</CardDescription>
-              </div>
-              <Badge className="bg-brand text-black hover:bg-brand/90">Popular</Badge>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="mb-4 text-3xl font-bold">$9<span className="text-base font-normal text-muted-foreground">/mo</span></p>
-            <ul className="grid gap-2 text-sm">
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Unlimited transfers</li>
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Unlimited synced playlists</li>
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Priority support</li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button className="w-full bg-brand text-black hover:bg-brand/90">Start Pro</Button>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Teams</CardTitle>
-            <CardDescription>For labels and studios</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="mb-4 text-3xl font-bold">Contact</p>
-            <ul className="grid gap-2 text-sm">
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Multi‑user workspaces</li>
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> SSO & audit logs</li>
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Dedicated support</li>
-            </ul>
-          </CardContent>
-          <CardFooter>
-            <Button variant="outline" className="w-full border-brand text-brand hover:bg-brand/10">Contact sales</Button>
+            <Button className="w-full bg-brand text-black hover:bg-brand/90">Use for free</Button>
           </CardFooter>
         </Card>
       </div>
