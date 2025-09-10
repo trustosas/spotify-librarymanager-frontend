@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useEffect, useMemo, useState } from 'react';
 
 import { Badge } from '@/registry/new-york-v4/ui/badge';
