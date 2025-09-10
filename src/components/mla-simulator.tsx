@@ -28,6 +28,12 @@ const accountEmails = {
 
 type AccountId = keyof typeof accountEmails;
 
+const accountNames: Record<AccountId, string> = {
+  'user-a': 'User A',
+  'user-b': 'User B',
+  'user-c': 'User C',
+};
+
 export default function SimulatorStepper() {
   const [step, setStep] = useState(1);
   const [action, setAction] = useState<'sync' | 'transfer'>('sync');
@@ -100,9 +106,9 @@ export default function SimulatorStepper() {
                 <Select value={sourceAccount} onValueChange={(v) => setSourceAccount(v as AccountId)}>
                   <SelectTrigger id="src"><SelectValue placeholder="Choose account" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="user-a">user-a</SelectItem>
-                    <SelectItem value="user-b">user-b</SelectItem>
-                    <SelectItem value="user-c">user-c</SelectItem>
+                    <SelectItem value="user-a">User A</SelectItem>
+                    <SelectItem value="user-b">User B</SelectItem>
+                    <SelectItem value="user-c">User C</SelectItem>
                   </SelectContent>
                 </Select>
                 {sourceConnected && (
@@ -154,8 +160,8 @@ export default function SimulatorStepper() {
                   <Select value={destAccount} onValueChange={(v) => setDestAccount(v as AccountId)}>
                     <SelectTrigger id="dst"><SelectValue placeholder="Choose account" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="user-b">user-b</SelectItem>
-                      <SelectItem value="user-c">user-c</SelectItem>
+                      <SelectItem value="user-b">User B</SelectItem>
+                      <SelectItem value="user-c">User C</SelectItem>
                     </SelectContent>
                   </Select>
                   {destConnected && (
@@ -196,8 +202,8 @@ export default function SimulatorStepper() {
               <p className="mb-2 font-medium">Review</p>
               <ul className="grid gap-1">
                 <li>Action: <strong>{summary.action}</strong></li>
-                <li>From: <strong>{summary.from} ({accountEmails[summary.from]})</strong></li>
-                <li>To: <strong>{summary.to} ({accountEmails[summary.to]})</strong></li>
+                <li>From: <strong>{accountNames[summary.from]} ({accountEmails[summary.from]})</strong></li>
+                <li>To: <strong>{accountNames[summary.to]} ({accountEmails[summary.to]})</strong></li>
                 <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
               </ul>
             </div>
