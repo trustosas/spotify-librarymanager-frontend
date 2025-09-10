@@ -283,7 +283,7 @@ function RunningActivity() {
     { id: 'c', icon: Sparkles, name: 'Cleanup duplicates', detail: 'Library hygiene', progress: 100, status: 'done' as const }
   ]);
 
-  useMemo(() => {
+  useEffect(() => {
     const interval = window.setInterval(() => {
       setItems((prev) =>
         prev.map((it) => {
