@@ -43,7 +43,7 @@ function Hero() {
             </Button>
           </div>
           <ul className="text-muted-foreground/90 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Connect with OAuth in seconds</li>
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Connect with Spotify in seconds</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Sync songs between playlists</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Preview changes before applying</li>
