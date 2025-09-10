@@ -96,7 +96,7 @@ export default function SimulatorStepper() {
               )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 4 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><Check className="size-4"/> Select destination playlist</div>
+              <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select destination playlist</div>
             </div>
           </div>
 
