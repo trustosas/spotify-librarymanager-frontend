@@ -197,3 +197,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+:root {
+  --brand: #1DB954;
+}
+
+.text-brand { color: var(--brand); }
+.bg-brand { background-color: var(--brand); }
+.border-brand { border-color: var(--brand); }
