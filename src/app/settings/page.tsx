@@ -18,13 +18,11 @@ export default function SettingsPage() {
   const [delay, setDelay] = useState<number>(0);
 
   useEffect(() => {
-    try {
-      const raw = typeof window !== "undefined" ? window.localStorage.getItem(KEY) : null;
-      if (raw != null) {
-        const n = Number(raw);
-        if (!Number.isNaN(n)) setDelay(clamp(n, 0, 120));
-      }
-    } catch {}
+    const raw = typeof window !== "undefined" ? window.localStorage.getItem(KEY) : null;
+    if (raw != null) {
+      const n = Number(raw);
+      if (!Number.isNaN(n)) setDelay(clamp(n, 0, 120));
+    }
   }, []);
 
   const save = () => {
