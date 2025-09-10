@@ -71,6 +71,9 @@ export default function SimulatorStepper() {
             <div className={`rounded-md border p-2 text-sm ${step === 1 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><User className="size-4"/> Connect source</div>
               <Badge variant="secondary" className="mt-2">{sourceConnected ? 'Connected' : 'Not connected'}</Badge>
+              {sourceConnected && (
+                <p className="mt-1 text-xs text-muted-foreground">{accountEmails[sourceAccount]}</p>
+              )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 2 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select playlists</div>
@@ -79,6 +82,9 @@ export default function SimulatorStepper() {
             <div className={`rounded-md border p-2 text-sm ${step === 3 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><Lock className="size-4"/> Connect destination</div>
               <Badge variant="secondary" className="mt-2">{destConnected ? 'Connected' : 'Not connected'}</Badge>
+              {destConnected && (
+                <p className="mt-1 text-xs text-muted-foreground">{accountEmails[destAccount]}</p>
+              )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 4 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><Check className="size-4"/> Review & run</div>
