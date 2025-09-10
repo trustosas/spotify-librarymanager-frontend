@@ -10,7 +10,7 @@ import { Input } from '@/registry/new-york-v4/ui/input';
 import { Label } from '@/registry/new-york-v4/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/registry/new-york-v4/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/new-york-v4/ui/tabs';
-import { Check, ListMusic, Lock, User } from 'lucide-react';
+import { ListMusic, Lock, User } from 'lucide-react';
 import { toast } from 'sonner';
 
 const samplePlaylists = [
