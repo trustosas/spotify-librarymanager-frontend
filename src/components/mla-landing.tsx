@@ -46,7 +46,6 @@ function Hero() {
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Connect with Spotify in seconds</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Sync songs between playlists</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Preview changes before applying</li>
           </ul>
         </div>
         <div className="relative">
