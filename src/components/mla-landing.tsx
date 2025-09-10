@@ -37,15 +37,15 @@ function Hero() {
             <Button className="bg-brand text-black hover:bg-brand/90">
               Use for free
             </Button>
-            <Button variant="outline" className="border-brand text-brand hover:bg-brand/10">
-              See how it works
+            <Button variant="outline" className="border-brand text-brand hover:bg-brand/10" asChild>
+              <a href="#demo">Open demo</a>
             </Button>
           </div>
           <ul className="text-muted-foreground/90 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> No Spotify logo or brand assets</li>
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Sync songs between playlists</li>
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Uses Spotify Green accents</li>
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Secure OAuth flow</li>
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Cancel anytime</li>
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> No Spotify logo or brand assets</li>
           </ul>
         </div>
         <div className="relative">
@@ -96,16 +96,12 @@ function Features() {
   return (
     <section id="features" className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
       <div className="mb-6 flex items-end justify-between">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">What you can do</h2>
+        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Sync & Transfer</h2>
         <Badge variant="outline" className="hidden sm:inline">No backend connected</Badge>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <Feature icon={Repeat2} title="Sync songs between accounts" desc="Mirror additions and removals between two playlists across different accounts." />
-        <Feature icon={Share2} title="Transfer playlists" desc="Move an entire playlist with one click and preserve order and metadata where possible." />
-        <Feature icon={Lock} title="Secure by design" desc="OAuth 2.0 with granular scopes. Your credentials never leave your device in this demo." />
-        <Feature icon={Sparkles} title="Smart duplicate handling" desc="Avoid duplicates and keep original order when syncing or transferring." />
-        <Feature icon={Library} title="Preview changes" desc="Dry-run to see what will be added and removed before you commit." />
-        <Feature icon={Upload} title="Bulk actions" desc="Select multiple playlists and process them together when you are ready." />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Feature icon={Repeat2} title="Synchronize songs in playlists" desc="Keep two playlists in lockstep by mirroring additions and removals across accounts." />
+        <Feature icon={Share2} title="Transfer a playlist" desc="Copy a playlist to another account and preserve order where possible." />
       </div>
     </section>
   );
@@ -122,7 +118,7 @@ function Simulator() {
   const canRun = useMemo(() => connected && !loading && source && target, [connected, loading, source, target]);
 
   return (
-    <section className="mx-auto max-w-7xl px-3 py-2 sm:px-6">
+    <section id="demo" className="mx-auto max-w-7xl px-3 py-2 sm:px-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2"><span className="inline-flex size-7 items-center justify-center rounded-md bg-brand text-black"><ListMusic className="size-4"/></span> Demo simulator</CardTitle>
@@ -143,6 +139,16 @@ function Simulator() {
                 <div className="space-y-2">
                   <Label htmlFor="target">Target account</Label>
                   <Input id="target" value={target} onChange={(e) => setTarget(e.target.value)} placeholder="account id" />
+                </div>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="space-y-2">
+                  <Label htmlFor="sourcePl">Source playlist ID</Label>
+                  <Input id="sourcePl" placeholder="playlist id" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="targetPl">Target playlist ID</Label>
+                  <Input id="targetPl" placeholder="playlist id" />
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -197,6 +203,10 @@ function Simulator() {
                   <Label htmlFor="to">To account</Label>
                   <Input id="to" placeholder="new-account-id" />
                 </div>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="playlist">Playlist ID</Label>
+                <Input id="playlist" placeholder="playlist id" />
               </div>
               <div className="flex items-center gap-3">
                 <Button className="bg-brand text-black hover:bg-brand/90">Select playlist</Button>
@@ -262,6 +272,50 @@ function Faq() {
           <AccordionContent>Yes. We use OAuth and request the minimum scopes required. This demo does not send data to any server.</AccordionContent>
         </AccordionItem>
       </Accordion>
+    </section>
+  );
+}
+
+function HowItWorks() {
+  return (
+    <section id="how" className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
+      <h2 className="mb-4 text-2xl font-bold sm:text-3xl">How it works</h2>
+      <Tabs defaultValue="sync">
+        <TabsList>
+          <TabsTrigger value="sync">Sync</TabsTrigger>
+          <TabsTrigger value="transfer">Transfer</TabsTrigger>
+        </TabsList>
+        <TabsContent value="sync" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Synchronize songs in playlists</CardTitle>
+              <CardDescription>Mirror additions and removals between two playlists across accounts.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ol className="list-decimal list-inside space-y-2 text-sm">
+                <li>Connect the two accounts you want to keep in sync.</li>
+                <li>Select the source and target playlists.</li>
+                <li>Run sync to apply adds/removes to the target.</li>
+              </ol>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="transfer" className="mt-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Transfer a playlist</CardTitle>
+              <CardDescription>Copy a playlist to another account and keep the order where possible.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ol className="list-decimal list-inside space-y-2 text-sm">
+                <li>Connect source and destination accounts.</li>
+                <li>Choose the playlist to move.</li>
+                <li>Transfer to create a new playlist on the destination.</li>
+              </ol>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </section>
   );
 }
@@ -348,6 +402,7 @@ export default function MlaLanding() {
     <main className="font-[family-name:var(--font-geist-sans)]">
       <Hero />
       <Features />
+      <HowItWorks />
       <Simulator />
       <Pricing />
       <Faq />
