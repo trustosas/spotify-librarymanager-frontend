@@ -47,7 +47,8 @@ export default function SimulatorStepper() {
 
   const canNext1 = sourceConnected;
   const canNext2 = selected.length > 0;
-  const canNext3 = action === 'transfer' ? destConnected : destConnected && targetPlaylist !== '';
+  const canNext3 = destConnected;
+  const canRun = targetPlaylist !== '' && (targetPlaylist !== 'create-new' || newPlaylistName.trim().length > 0);
 
   const summary = useMemo(
     () => ({
@@ -84,7 +85,7 @@ export default function SimulatorStepper() {
               )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 2 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select playlists</div>
+              <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select source playlist</div>
               <Badge variant="secondary" className="mt-2">{selected.length} selected</Badge>
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 3 ? 'border-brand' : ''}`}>
@@ -95,7 +96,7 @@ export default function SimulatorStepper() {
               )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 4 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><Check className="size-4"/> Review & run</div>
+              <div className="flex items-center gap-2"><Check className="size-4"/> Select destination playlist</div>
             </div>
           </div>
 
@@ -173,39 +174,28 @@ export default function SimulatorStepper() {
                 </div>
               </div>
 
-              {action === 'sync' && (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="target">Target playlist</Label>
-                    <Select value={targetPlaylist} onValueChange={setTargetPlaylist}>
-                      <SelectTrigger id="target"><SelectValue placeholder="Select or create" /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="create-new">Create new playlist</SelectItem>
-                        <SelectItem value="pl-dest-1">My Favorite Songs</SelectItem>
-                        <SelectItem value="pl-dest-2">Gym Mix</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {targetPlaylist === 'create-new' && (
-                    <div className="space-y-2">
-                      <Label htmlFor="newname">New playlist name</Label>
-                      <Input id="newname" value={newPlaylistName} onChange={(e) => setNewPlaylistName(e.target.value)} />
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           )}
 
           {step === 4 && (
-            <div className="rounded-lg border p-4 text-sm">
-              <p className="mb-2 font-medium">Review</p>
-              <ul className="grid gap-1">
-                <li>Action: <strong>{summary.action}</strong></li>
-                <li>From: <strong>{accountNames[summary.from]} ({accountEmails[summary.from]})</strong></li>
-                <li>To: <strong>{accountNames[summary.to]} ({accountEmails[summary.to]})</strong></li>
-                <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
-              </ul>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="target">Destination playlist</Label>
+                <Select value={targetPlaylist} onValueChange={setTargetPlaylist}>
+                  <SelectTrigger id="target"><SelectValue placeholder="Select or create" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="create-new">Create new playlist</SelectItem>
+                    <SelectItem value="pl-dest-1">My Favorite Songs</SelectItem>
+                    <SelectItem value="pl-dest-2">Gym Mix</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {targetPlaylist === 'create-new' && (
+                <div className="space-y-2">
+                  <Label htmlFor="newname">New playlist name</Label>
+                  <Input id="newname" value={newPlaylistName} onChange={(e) => setNewPlaylistName(e.target.value)} />
+                </div>
+              )}
             </div>
           )}
         </CardContent>
@@ -224,7 +214,8 @@ export default function SimulatorStepper() {
             {step === 4 && (
               <Button
                 onClick={() => toast.success(action === 'sync' ? 'Sync complete' : 'Transfer complete', { description: `${selected.length} playlist(s) processed` })}
-                className="bg-brand text-black hover:bg-brand/90">
+                disabled={!canRun}
+                className="bg-brand text-black hover:bg-brand/90 disabled:opacity-50">
                 Run
               </Button>
             )}
