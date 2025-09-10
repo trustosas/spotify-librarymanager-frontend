@@ -47,13 +47,13 @@ export default function SettingsPage() {
           <CardDescription>Delay between API actions. Range: 0 to 120 seconds.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="space-y-2">
+          <div className="space-y-3">
             <Label htmlFor="delay">Delay (seconds)</Label>
-            <div className="grid gap-3 sm:grid-cols-5 sm:items-center sm:gap-4">
-              <div className="sm:col-span-4 px-1 sm:pr-2">
+            <div className="grid gap-4 sm:grid-cols-5 sm:items-center sm:gap-5">
+              <div className="sm:col-span-4 px-1 sm:pr-2 mt-1.5 sm:mt-0">
                 <Slider value={[delay]} min={0} max={120} step={1} onValueChange={(v) => setDelay(v[0] ?? 0)} />
               </div>
-              <div className="sm:col-span-1 sm:pl-2">
+              <div className="sm:col-span-1 sm:pl-3">
                 <Input
                   id="delay"
                   type="number"
