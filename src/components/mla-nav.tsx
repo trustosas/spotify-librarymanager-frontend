@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/registry/new-york-v4/ui/button";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Music } from "lucide-react";
+import { Moon, Sun, Music, Settings } from "lucide-react";
 
 const MlaNav = () => {
   const { theme, setTheme } = useTheme();
@@ -34,6 +34,13 @@ const MlaNav = () => {
             <a href="#demo">Live Demo</a>
           </Button>
           <Button className="bg-brand text-black hover:bg-brand/90">Start free</Button>
+          <Link
+            href="/settings"
+            aria-label="Settings"
+            className="inline-flex size-9 items-center justify-center rounded-md border hover:bg-accent"
+          >
+            <Settings className="size-4" />
+          </Link>
           <button
             aria-label="Toggle theme"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
