@@ -403,7 +403,7 @@ export default function MlaLanding() {
       <Hero />
       <Features />
       <HowItWorks />
-      <Simulator />
+      <SimulatorStepper />
       <Pricing />
       <Faq />
       <StatesDoc />
