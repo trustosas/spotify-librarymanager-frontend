@@ -26,20 +26,29 @@ const accountEmails = {
   'user-c': 'user-c@example.com'
 } as const;
 
+type AccountId = keyof typeof accountEmails;
+
+const accountNames: Record<AccountId, string> = {
+  'user-a': 'User A',
+  'user-b': 'User B',
+  'user-c': 'User C',
+};
+
 export default function SimulatorStepper() {
   const [step, setStep] = useState(1);
   const [action, setAction] = useState<'sync' | 'transfer'>('sync');
   const [sourceConnected, setSourceConnected] = useState(false);
   const [destConnected, setDestConnected] = useState(false);
-  const [sourceAccount, setSourceAccount] = useState('user-a');
-  const [destAccount, setDestAccount] = useState('user-b');
+  const [sourceAccount, setSourceAccount] = useState<AccountId>('user-a');
+  const [destAccount, setDestAccount] = useState<AccountId>('user-b');
   const [selected, setSelected] = useState<string[]>([]);
   const [targetPlaylist, setTargetPlaylist] = useState<string>('create-new');
   const [newPlaylistName, setNewPlaylistName] = useState('Synced Playlist');
 
   const canNext1 = sourceConnected;
   const canNext2 = selected.length > 0;
-  const canNext3 = action === 'transfer' ? destConnected : destConnected && targetPlaylist !== '';
+  const canNext3 = destConnected;
+  const canRun = targetPlaylist !== '' && (targetPlaylist !== 'create-new' || newPlaylistName.trim().length > 0);
 
   const summary = useMemo(
     () => ({
@@ -69,25 +78,25 @@ export default function SimulatorStepper() {
           {/* Stepper header */}
           <div className="grid gap-2 sm:grid-cols-4">
             <div className={`rounded-md border p-2 text-sm ${step === 1 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><User className="size-4"/> Connect source</div>
+              <div className="flex items-center gap-2">{sourceConnected ? <User className="size-4"/> : <Lock className="size-4"/>} Connect source</div>
               <Badge variant="secondary" className="mt-2">{sourceConnected ? 'Connected' : 'Not connected'}</Badge>
               {sourceConnected && (
                 <p className="mt-1 text-xs text-muted-foreground">{accountEmails[sourceAccount]}</p>
               )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 2 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select playlists</div>
+              <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select source playlist</div>
               <Badge variant="secondary" className="mt-2">{selected.length} selected</Badge>
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 3 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><Lock className="size-4"/> Connect destination</div>
+              <div className="flex items-center gap-2">{destConnected ? <User className="size-4"/> : <Lock className="size-4"/>} Connect destination</div>
               <Badge variant="secondary" className="mt-2">{destConnected ? 'Connected' : 'Not connected'}</Badge>
               {destConnected && (
                 <p className="mt-1 text-xs text-muted-foreground">{accountEmails[destAccount]}</p>
               )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 4 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><Check className="size-4"/> Review & run</div>
+              <div className="flex items-center gap-2"><Check className="size-4"/> Select destination playlist</div>
             </div>
           </div>
 
@@ -95,12 +104,12 @@ export default function SimulatorStepper() {
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="src">Source account</Label>
-                <Select value={sourceAccount} onValueChange={setSourceAccount}>
+                <Select value={sourceAccount} onValueChange={(v) => setSourceAccount(v as AccountId)}>
                   <SelectTrigger id="src"><SelectValue placeholder="Choose account" /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="user-a">user-a</SelectItem>
-                    <SelectItem value="user-b">user-b</SelectItem>
-                    <SelectItem value="user-c">user-c</SelectItem>
+                    <SelectItem value="user-a">User A</SelectItem>
+                    <SelectItem value="user-b">User B</SelectItem>
+                    <SelectItem value="user-c">User C</SelectItem>
                   </SelectContent>
                 </Select>
                 {sourceConnected && (
@@ -110,12 +119,11 @@ export default function SimulatorStepper() {
               <div className="flex items-end gap-2">
                 <Button
                   type="button"
-                  onClick={() => { setSourceConnected(true); toast('Source connected via OAuth'); }}
+                  onClick={() => { setSourceConnected(true); toast.success('Connected to Spotify'); }}
                   className="bg-brand text-black hover:bg-brand/90">
-                  Connect with OAuth
+                  Connect with Spotify
                 </Button>
-                {sourceConnected && <Badge className="bg-brand text-black">Connected</Badge>}
-              </div>
+                              </div>
             </div>
           )}
 
@@ -149,11 +157,11 @@ export default function SimulatorStepper() {
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="dst">Destination account</Label>
-                  <Select value={destAccount} onValueChange={setDestAccount}>
+                  <Select value={destAccount} onValueChange={(v) => setDestAccount(v as AccountId)}>
                     <SelectTrigger id="dst"><SelectValue placeholder="Choose account" /></SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="user-b">user-b</SelectItem>
-                      <SelectItem value="user-c">user-c</SelectItem>
+                      <SelectItem value="user-b">User B</SelectItem>
+                      <SelectItem value="user-c">User C</SelectItem>
                     </SelectContent>
                   </Select>
                   {destConnected && (
@@ -161,43 +169,32 @@ export default function SimulatorStepper() {
                   )}
                 </div>
                 <div className="flex items-end">
-                  <Button type="button" onClick={() => { setDestConnected(true); toast('Destination connected via OAuth'); }} className="bg-brand text-black hover:bg-brand/90">Connect with OAuth</Button>
+                  <Button type="button" onClick={() => { setDestConnected(true); toast.success('Connected to Spotify'); }} className="bg-brand text-black hover:bg-brand/90">Connect with Spotify</Button>
                 </div>
               </div>
 
-              {action === 'sync' && (
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="target">Target playlist</Label>
-                    <Select value={targetPlaylist} onValueChange={setTargetPlaylist}>
-                      <SelectTrigger id="target"><SelectValue placeholder="Select or create" /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="create-new">Create new playlist</SelectItem>
-                        <SelectItem value="pl-dest-1">My Favorite Songs</SelectItem>
-                        <SelectItem value="pl-dest-2">Gym Mix</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  {targetPlaylist === 'create-new' && (
-                    <div className="space-y-2">
-                      <Label htmlFor="newname">New playlist name</Label>
-                      <Input id="newname" value={newPlaylistName} onChange={(e) => setNewPlaylistName(e.target.value)} />
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
           )}
 
           {step === 4 && (
-            <div className="rounded-lg border p-4 text-sm">
-              <p className="mb-2 font-medium">Review</p>
-              <ul className="grid gap-1">
-                <li>Action: <strong>{summary.action}</strong></li>
-                <li>From: <strong>{summary.from} ({accountEmails[summary.from as keyof typeof accountEmails]})</strong></li>
-                <li>To: <strong>{summary.to} ({accountEmails[summary.to as keyof typeof accountEmails]})</strong></li>
-                <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
-              </ul>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="target">Destination playlist</Label>
+                <Select value={targetPlaylist} onValueChange={setTargetPlaylist}>
+                  <SelectTrigger id="target"><SelectValue placeholder="Select or create" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="create-new">Create new playlist</SelectItem>
+                    <SelectItem value="pl-dest-1">My Favorite Songs</SelectItem>
+                    <SelectItem value="pl-dest-2">Gym Mix</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {targetPlaylist === 'create-new' && (
+                <div className="space-y-2">
+                  <Label htmlFor="newname">New playlist name</Label>
+                  <Input id="newname" value={newPlaylistName} onChange={(e) => setNewPlaylistName(e.target.value)} />
+                </div>
+              )}
             </div>
           )}
         </CardContent>
@@ -216,7 +213,8 @@ export default function SimulatorStepper() {
             {step === 4 && (
               <Button
                 onClick={() => toast.success(action === 'sync' ? 'Sync complete' : 'Transfer complete', { description: `${selected.length} playlist(s) processed` })}
-                className="bg-brand text-black hover:bg-brand/90">
+                disabled={!canRun}
+                className="bg-brand text-black hover:bg-brand/90 disabled:opacity-50">
                 Run
               </Button>
             )}

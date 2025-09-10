@@ -43,7 +43,7 @@ function Hero() {
             </Button>
           </div>
           <ul className="text-muted-foreground/90 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Connect with OAuth in seconds</li>
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Connect with Spotify in seconds</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Sync songs between playlists</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Preview changes before applying</li>
@@ -288,10 +288,12 @@ function RunningActivity() {
         prev.map((it) => {
           if (it.status !== 'running') return it;
           const next = Math.min(100, it.progress + Math.floor(Math.random() * 8 + 2));
+
           return { ...it, progress: next, status: next >= 100 ? 'done' : 'running' };
         })
       );
     }, 1200);
+
     return () => window.clearInterval(interval);
   }, []);
 
@@ -304,6 +306,7 @@ function RunningActivity() {
         {items.map((it) => {
           const Icon = it.icon;
           const done = it.status === 'done';
+
           return (
             <Card key={it.id}>
               <CardHeader className="pb-3">
