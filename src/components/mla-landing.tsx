@@ -48,7 +48,7 @@ function Hero() {
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
           </ul>
         </div>
-        <div className="relative">
+        <div className="relative hidden sm:block">
           <div className="rounded-xl border bg-card p-4 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
