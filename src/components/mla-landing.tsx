@@ -10,8 +10,9 @@ import { Label } from '@/registry/new-york-v4/ui/label';
 import { Skeleton } from '@/registry/new-york-v4/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/new-york-v4/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/registry/new-york-v4/ui/accordion';
+import { Progress } from '@/registry/new-york-v4/ui/progress';
 import SimulatorStepper from '@/components/mla-simulator';
-import { Check, ChevronRight, Library, ListMusic, Lock, Music, Repeat2, Share2, Sparkles, Upload } from 'lucide-react';
+import { Check, ChevronRight, Library, ListMusic, Lock, Music, Repeat2, Share2, Sparkles, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 const demoPlaylists = [
