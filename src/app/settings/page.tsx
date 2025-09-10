@@ -61,6 +61,7 @@ export default function SettingsPage() {
                   max={120}
                   value={delay}
                   onChange={(e) => setDelay(clamp(Number(e.target.value), 0, 120))}
+                  className="w-24 sm:w-20 text-right"
                 />
               </div>
             </div>
