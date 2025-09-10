@@ -26,13 +26,15 @@ const accountEmails = {
   'user-c': 'user-c@example.com'
 } as const;
 
+type AccountId = keyof typeof accountEmails;
+
 export default function SimulatorStepper() {
   const [step, setStep] = useState(1);
   const [action, setAction] = useState<'sync' | 'transfer'>('sync');
   const [sourceConnected, setSourceConnected] = useState(false);
   const [destConnected, setDestConnected] = useState(false);
-  const [sourceAccount, setSourceAccount] = useState('user-a');
-  const [destAccount, setDestAccount] = useState('user-b');
+  const [sourceAccount, setSourceAccount] = useState<AccountId>('user-a');
+  const [destAccount, setDestAccount] = useState<AccountId>('user-b');
   const [selected, setSelected] = useState<string[]>([]);
   const [targetPlaylist, setTargetPlaylist] = useState<string>('create-new');
   const [newPlaylistName, setNewPlaylistName] = useState('Synced Playlist');
@@ -95,7 +97,7 @@ export default function SimulatorStepper() {
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="src">Source account</Label>
-                <Select value={sourceAccount} onValueChange={setSourceAccount}>
+                <Select value={sourceAccount} onValueChange={(v) => setSourceAccount(v as AccountId)}>
                   <SelectTrigger id="src"><SelectValue placeholder="Choose account" /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="user-a">user-a</SelectItem>
@@ -149,7 +151,7 @@ export default function SimulatorStepper() {
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="dst">Destination account</Label>
-                  <Select value={destAccount} onValueChange={setDestAccount}>
+                  <Select value={destAccount} onValueChange={(v) => setDestAccount(v as AccountId)}>
                     <SelectTrigger id="dst"><SelectValue placeholder="Choose account" /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="user-b">user-b</SelectItem>
@@ -194,8 +196,8 @@ export default function SimulatorStepper() {
               <p className="mb-2 font-medium">Review</p>
               <ul className="grid gap-1">
                 <li>Action: <strong>{summary.action}</strong></li>
-                <li>From: <strong>{summary.from} ({accountEmails[summary.from as keyof typeof accountEmails]})</strong></li>
-                <li>To: <strong>{summary.to} ({accountEmails[summary.to as keyof typeof accountEmails]})</strong></li>
+                <li>From: <strong>{summary.from} ({accountEmails[summary.from]})</strong></li>
+                <li>To: <strong>{summary.to} ({accountEmails[summary.to]})</strong></li>
                 <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
               </ul>
             </div>
