@@ -28,10 +28,10 @@ const MlaNav = () => {
           <Link href="#faq" className="hidden text-sm hover:underline underline-offset-4 sm:inline">
             FAQ
           </Link>
-          <Button
+          <Button asChild
             variant="outline"
             className="hidden sm:inline-flex border-brand text-brand hover:bg-brand/10">
-            Live Demo
+            <a href="#demo">Live Demo</a>
           </Button>
           <Button className="bg-brand text-black hover:bg-brand/90">Start free</Button>
           <button
