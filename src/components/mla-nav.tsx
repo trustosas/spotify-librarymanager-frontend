@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/registry/new-york-v4/ui/button";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Music } from "lucide-react";
 
 const MlaNav = () => {
   const { theme, setTheme } = useTheme();
@@ -12,7 +12,7 @@ const MlaNav = () => {
     <header className="sticky top-0 z-40 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-3 sm:px-6">
         <div className="flex items-center gap-3">
-          <span className="inline-flex size-8 items-center justify-center rounded-md bg-brand text-black font-bold">MLA</span>
+          <span className="inline-flex size-8 items-center justify-center rounded-md bg-brand text-black font-bold"><Music className="size-4" /></span>
           <Link href="/" className="text-sm font-semibold tracking-tight">
             Music Library Assistant
           </Link>

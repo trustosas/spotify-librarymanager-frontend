@@ -1,6 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+'use client';
+
+import { useEffect, useMemo, useState } from 'react';
 
 import { Badge } from '@/registry/new-york-v4/ui/badge';
 import { Button } from '@/registry/new-york-v4/ui/button';
@@ -10,8 +12,9 @@ import { Label } from '@/registry/new-york-v4/ui/label';
 import { Skeleton } from '@/registry/new-york-v4/ui/skeleton';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/registry/new-york-v4/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/registry/new-york-v4/ui/accordion';
+import { Progress } from '@/registry/new-york-v4/ui/progress';
 import SimulatorStepper from '@/components/mla-simulator';
-import { Check, ChevronRight, Library, ListMusic, Lock, Music, Repeat2, Share2, Sparkles, Upload } from 'lucide-react';
+import { Check, ChevronRight, Library, ListMusic, Lock, Music, Repeat2, Share2, Sparkles, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
 
 const demoPlaylists = [
@@ -35,11 +38,8 @@ function Hero() {
             across multiple profiles in one click.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button className="bg-brand text-black hover:bg-brand/90">
-              Use for free
-            </Button>
-            <Button variant="outline" className="border-brand text-brand hover:bg-brand/10" asChild>
-              <a href="#demo">Open demo</a>
+            <Button className="bg-brand text-black hover:bg-brand/90" asChild>
+              <a href="#demo">Get Started</a>
             </Button>
           </div>
           <ul className="text-muted-foreground/90 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
@@ -275,6 +275,77 @@ function Faq() {
   );
 }
 
+function RunningActivity() {
+  const [items, setItems] = useState([
+    { id: 'a', icon: Repeat2, name: 'Sync playlists', detail: 'Indie Mix ↔ Focus Beats', progress: 18, status: 'running' as const },
+    { id: 'b', icon: Upload, name: 'Transfer playlist', detail: 'Chill Vibes → New account', progress: 42, status: 'running' as const },
+    { id: 'c', icon: Sparkles, name: 'Cleanup duplicates', detail: 'Library hygiene', progress: 100, status: 'done' as const }
+  ]);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setItems((prev) =>
+        prev.map((it) => {
+          if (it.status !== 'running') return it;
+          const next = Math.min(100, it.progress + Math.floor(Math.random() * 8 + 2));
+          return { ...it, progress: next, status: next >= 100 ? 'done' : 'running' };
+        })
+      );
+    }, 1200);
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <section className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
+      <div className="mb-6 flex items-end justify-between">
+        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Running activity</h2>
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {items.map((it) => {
+          const Icon = it.icon;
+          const done = it.status === 'done';
+          return (
+            <Card key={it.id}>
+              <CardHeader className="pb-3">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex size-8 items-center justify-center rounded-md bg-brand text-black"><Icon className="size-4"/></span>
+                    <div>
+                      <CardTitle className="text-base">{it.name}</CardTitle>
+                      <CardDescription>{it.detail}</CardDescription>
+                    </div>
+                  </div>
+                  <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs ${done ? 'bg-muted text-muted-foreground' : 'bg-brand text-black'}`}>
+                    {done ? 'Completed' : 'Running'}
+                  </span>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-2 flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">Progress</span>
+                  <span className="font-medium">{it.progress}%</span>
+                </div>
+                <Progress value={it.progress} />
+                <div className="mt-3 flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="border-brand text-brand hover:bg-brand/10"
+                    disabled={!done}
+                    onClick={() => setItems((prev) => prev.filter((x) => x.id !== it.id))}
+                  >
+                    Dismiss
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function HowItWorks() {
   return (
     <section id="how" className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
@@ -382,7 +453,7 @@ function StatesDoc() {
 function Footer() {
   return (
     <footer className="mt-10 border-t">
-      <div className="mx-auto max-w-7xl px-3 py-6 text-sm text-muted-foreground sm:px-6">
+      <div className="mx-auto max-w-7xl px-3 py-6 pb-8 text-sm text-muted-foreground sm:px-6">
         <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Music Library Assistant</p>
           <div className="flex flex-wrap items-center gap-3">
@@ -403,6 +474,7 @@ export default function MlaLanding() {
       <Features />
       <HowItWorks />
       <SimulatorStepper />
+      <RunningActivity />
       <Pricing />
       <Faq />
       <StatesDoc />

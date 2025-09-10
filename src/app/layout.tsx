@@ -35,7 +35,7 @@ const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
                 <ThemeProvider attribute='class'>
                     <MlaNav />
                     {children}
-                    <Toaster />
+                    <Toaster position='top-center' offset={64} />
                 </ThemeProvider>
             </body>
         </html>

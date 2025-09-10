@@ -20,6 +20,12 @@ const samplePlaylists = [
   { id: 'pl-4', name: 'Daily Mix Indie', tracks: 48 }
 ];
 
+const accountEmails = {
+  'user-a': 'user-a@example.com',
+  'user-b': 'user-b@example.com',
+  'user-c': 'user-c@example.com'
+} as const;
+
 export default function SimulatorStepper() {
   const [step, setStep] = useState(1);
   const [action, setAction] = useState<'sync' | 'transfer'>('sync');
@@ -65,6 +71,9 @@ export default function SimulatorStepper() {
             <div className={`rounded-md border p-2 text-sm ${step === 1 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><User className="size-4"/> Connect source</div>
               <Badge variant="secondary" className="mt-2">{sourceConnected ? 'Connected' : 'Not connected'}</Badge>
+              {sourceConnected && (
+                <p className="mt-1 text-xs text-muted-foreground">{accountEmails[sourceAccount]}</p>
+              )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 2 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><ListMusic className="size-4"/> Select playlists</div>
@@ -73,6 +82,9 @@ export default function SimulatorStepper() {
             <div className={`rounded-md border p-2 text-sm ${step === 3 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><Lock className="size-4"/> Connect destination</div>
               <Badge variant="secondary" className="mt-2">{destConnected ? 'Connected' : 'Not connected'}</Badge>
+              {destConnected && (
+                <p className="mt-1 text-xs text-muted-foreground">{accountEmails[destAccount]}</p>
+              )}
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 4 ? 'border-brand' : ''}`}>
               <div className="flex items-center gap-2"><Check className="size-4"/> Review & run</div>
@@ -91,6 +103,9 @@ export default function SimulatorStepper() {
                     <SelectItem value="user-c">user-c</SelectItem>
                   </SelectContent>
                 </Select>
+                {sourceConnected && (
+                  <p className="text-xs text-muted-foreground">{accountEmails[sourceAccount]}</p>
+                )}
               </div>
               <div className="flex items-end gap-2">
                 <Button
@@ -141,6 +156,9 @@ export default function SimulatorStepper() {
                       <SelectItem value="user-c">user-c</SelectItem>
                     </SelectContent>
                   </Select>
+                  {destConnected && (
+                    <p className="text-xs text-muted-foreground">{accountEmails[destAccount]}</p>
+                  )}
                 </div>
                 <div className="flex items-end">
                   <Button type="button" onClick={() => { setDestConnected(true); toast('Destination connected via OAuth'); }} className="bg-brand text-black hover:bg-brand/90">Connect with OAuth</Button>
@@ -176,8 +194,8 @@ export default function SimulatorStepper() {
               <p className="mb-2 font-medium">Review</p>
               <ul className="grid gap-1">
                 <li>Action: <strong>{summary.action}</strong></li>
-                <li>From: <strong>{summary.from}</strong></li>
-                <li>To: <strong>{summary.to}</strong></li>
+                <li>From: <strong>{summary.from} ({accountEmails[summary.from as keyof typeof accountEmails]})</strong></li>
+                <li>To: <strong>{summary.to} ({accountEmails[summary.to as keyof typeof accountEmails]})</strong></li>
                 <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
               </ul>
             </div>
