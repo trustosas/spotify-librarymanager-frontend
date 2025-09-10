@@ -49,7 +49,7 @@ export default function SimulatorStepper() {
     <section id="demo" className="mx-auto max-w-7xl px-3 py-2 sm:px-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2"><span className="inline-flex size-7 items-center justify-center rounded-md bg-brand text-black"><ListMusic className="size-4"/></span> Demo: OAuth → Select → {action === 'sync' ? 'Sync' : 'Transfer'}</CardTitle>
+          <CardTitle className="flex items-center gap-2"><span className="inline-flex size-7 items-center justify-center rounded-md bg-brand text-black"><ListMusic className="size-4"/></span> Connect, select, and run</CardTitle>
           <CardDescription>Step {step} of 4</CardDescription>
         </CardHeader>
         <CardContent className="space-y-5">
@@ -180,7 +180,6 @@ export default function SimulatorStepper() {
                 <li>To: <strong>{summary.to}</strong></li>
                 <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
               </ul>
-              <p className="mt-3 text-muted-foreground">This is a frontend demo. No external calls are made.</p>
             </div>
           )}
         </CardContent>
