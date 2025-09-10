@@ -78,7 +78,7 @@ export default function SimulatorStepper() {
           {/* Stepper header */}
           <div className="grid gap-2 sm:grid-cols-4">
             <div className={`rounded-md border p-2 text-sm ${step === 1 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><User className="size-4"/> Connect source</div>
+              <div className="flex items-center gap-2">{sourceConnected ? <User className="size-4"/> : <Lock className="size-4"/>} Connect source</div>
               <Badge variant="secondary" className="mt-2">{sourceConnected ? 'Connected' : 'Not connected'}</Badge>
               {sourceConnected && (
                 <p className="mt-1 text-xs text-muted-foreground">{accountEmails[sourceAccount]}</p>
@@ -89,7 +89,7 @@ export default function SimulatorStepper() {
               <Badge variant="secondary" className="mt-2">{selected.length} selected</Badge>
             </div>
             <div className={`rounded-md border p-2 text-sm ${step === 3 ? 'border-brand' : ''}`}>
-              <div className="flex items-center gap-2"><Lock className="size-4"/> Connect destination</div>
+              <div className="flex items-center gap-2">{destConnected ? <User className="size-4"/> : <Lock className="size-4"/>} Connect destination</div>
               <Badge variant="secondary" className="mt-2">{destConnected ? 'Connected' : 'Not connected'}</Badge>
               {destConnected && (
                 <p className="mt-1 text-xs text-muted-foreground">{accountEmails[destAccount]}</p>
