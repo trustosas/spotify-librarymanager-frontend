@@ -23,7 +23,7 @@ const MlaNav = () => {
             Features
           </Link>
           <Link href="#pricing" className="hidden text-sm hover:underline underline-offset-4 sm:inline">
-            Pricing
+            Free
           </Link>
           <Link href="#faq" className="hidden text-sm hover:underline underline-offset-4 sm:inline">
             FAQ
