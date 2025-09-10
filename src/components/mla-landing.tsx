@@ -288,10 +288,12 @@ function RunningActivity() {
         prev.map((it) => {
           if (it.status !== 'running') return it;
           const next = Math.min(100, it.progress + Math.floor(Math.random() * 8 + 2));
+
           return { ...it, progress: next, status: next >= 100 ? 'done' : 'running' };
         })
       );
     }, 1200);
+
     return () => window.clearInterval(interval);
   }, []);
 
@@ -304,6 +306,7 @@ function RunningActivity() {
         {items.map((it) => {
           const Icon = it.icon;
           const done = it.status === 'done';
+
           return (
             <Card key={it.id}>
               <CardHeader className="pb-3">
