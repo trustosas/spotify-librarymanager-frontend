@@ -43,10 +43,10 @@ function Hero() {
             </Button>
           </div>
           <ul className="text-muted-foreground/90 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Connect with OAuth in seconds</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Sync songs between playlists</li>
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Uses Spotify Green accents</li>
-            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> No Spotify logo or brand assets</li>
+            <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Preview changes before applying</li>
           </ul>
         </div>
         <div className="relative">
@@ -56,7 +56,6 @@ function Hero() {
                 <span className="inline-flex size-8 items-center justify-center rounded-md bg-brand text-black"><Music className="size-4"/></span>
                 <span className="font-semibold">Your playlists</span>
               </div>
-              <Badge variant="secondary" className="hidden sm:inline">Demo</Badge>
             </div>
             <div className="grid gap-2 sm:grid-cols-2">
               {demoPlaylists.map((p) => (
@@ -98,7 +97,6 @@ function Features() {
     <section id="features" className="mx-auto max-w-7xl px-3 py-10 sm:px-6">
       <div className="mb-6 flex items-end justify-between">
         <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Sync & Transfer</h2>
-        <Badge variant="outline" className="hidden sm:inline">No backend connected</Badge>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Feature icon={Repeat2} title="Synchronize songs in playlists" desc="Keep two playlists in lockstep by mirroring additions and removals across accounts." />
@@ -388,7 +386,7 @@ function Footer() {
         <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
           <p>© {new Date().getFullYear()} Music Library Assistant</p>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2"><span className="size-2 rounded-full bg-brand"/> Uses Spotify Green accents</span>
+            <span>Free forever</span>
             <a href="#privacy" className="hover:underline">Privacy</a>
             <a href="#terms" className="hover:underline">Terms</a>
           </div>
