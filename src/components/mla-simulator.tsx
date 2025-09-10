@@ -114,7 +114,7 @@ export default function SimulatorStepper() {
                   type="button"
                   onClick={() => { setSourceConnected(true); toast('Source connected via OAuth'); }}
                   className="bg-brand text-black hover:bg-brand/90">
-                  Connect with OAuth
+                  Connect with Spotify
                 </Button>
                 {sourceConnected && <Badge className="bg-brand text-black">Connected</Badge>}
               </div>
@@ -163,7 +163,7 @@ export default function SimulatorStepper() {
                   )}
                 </div>
                 <div className="flex items-end">
-                  <Button type="button" onClick={() => { setDestConnected(true); toast('Destination connected via OAuth'); }} className="bg-brand text-black hover:bg-brand/90">Connect with OAuth</Button>
+                  <Button type="button" onClick={() => { setDestConnected(true); toast('Destination connected via OAuth'); }} className="bg-brand text-black hover:bg-brand/90">Connect with Spotify</Button>
                 </div>
               </div>
 
