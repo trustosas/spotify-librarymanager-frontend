@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/registry/new-york-v4/ui/button";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Music } from "lucide-react";
 
 const MlaNav = () => {
   const { theme, setTheme } = useTheme();
