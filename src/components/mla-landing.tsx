@@ -29,7 +29,7 @@ function Hero() {
     <section className="mx-auto mt-6 max-w-7xl px-3 sm:mt-10 sm:px-6">
       <div className="grid items-center gap-8 sm:grid-cols-2">
         <div className="space-y-4 sm:space-y-6">
-          <Badge className="bg-brand text-black hover:bg-brand/90">New • MVP</Badge>
+          <Badge className="bg-brand text-black hover:bg-brand/90">New</Badge>
           <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl">
             Manage and move your playlists between accounts
           </h1>
@@ -48,7 +48,7 @@ function Hero() {
             <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Transfer playlists between accounts</li>
           </ul>
         </div>
-        <div className="relative">
+        <div className="relative hidden sm:block">
           <div className="rounded-xl border bg-card p-4 shadow-sm">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
