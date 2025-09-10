@@ -334,18 +334,10 @@ function RunningActivity() {
                     size="sm"
                     variant="outline"
                     className="border-brand text-brand hover:bg-brand/10"
-                    disabled={done}
-                    onClick={() => setItems((prev) => prev.map((x) => x.id === it.id ? { ...x, status: 'done', progress: 100 } : x))}
-                  >
-                    Mark done
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    className="text-muted-foreground hover:text-foreground"
+                    disabled={!done}
                     onClick={() => setItems((prev) => prev.filter((x) => x.id !== it.id))}
                   >
-                    <X className="size-4" />
+                    Dismiss
                   </Button>
                 </div>
               </CardContent>
