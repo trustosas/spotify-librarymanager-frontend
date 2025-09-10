@@ -483,6 +483,7 @@ export default function MlaLanding() {
       <Features />
       <HowItWorks />
       <SimulatorStepper />
+      <RunningActivity />
       <Pricing />
       <Faq />
       <StatesDoc />
