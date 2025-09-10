@@ -20,6 +20,12 @@ const samplePlaylists = [
   { id: 'pl-4', name: 'Daily Mix Indie', tracks: 48 }
 ];
 
+const accountEmails = {
+  'user-a': 'user-a@example.com',
+  'user-b': 'user-b@example.com',
+  'user-c': 'user-c@example.com'
+} as const;
+
 export default function SimulatorStepper() {
   const [step, setStep] = useState(1);
   const [action, setAction] = useState<'sync' | 'transfer'>('sync');
@@ -91,6 +97,9 @@ export default function SimulatorStepper() {
                     <SelectItem value="user-c">user-c</SelectItem>
                   </SelectContent>
                 </Select>
+                {sourceConnected && (
+                  <p className="text-xs text-muted-foreground">{accountEmails[sourceAccount]}</p>
+                )}
               </div>
               <div className="flex items-end gap-2">
                 <Button
@@ -141,6 +150,9 @@ export default function SimulatorStepper() {
                       <SelectItem value="user-c">user-c</SelectItem>
                     </SelectContent>
                   </Select>
+                  {destConnected && (
+                    <p className="text-xs text-muted-foreground">{accountEmails[destAccount]}</p>
+                  )}
                 </div>
                 <div className="flex items-end">
                   <Button type="button" onClick={() => { setDestConnected(true); toast('Destination connected via OAuth'); }} className="bg-brand text-black hover:bg-brand/90">Connect with OAuth</Button>
@@ -176,8 +188,8 @@ export default function SimulatorStepper() {
               <p className="mb-2 font-medium">Review</p>
               <ul className="grid gap-1">
                 <li>Action: <strong>{summary.action}</strong></li>
-                <li>From: <strong>{summary.from}</strong></li>
-                <li>To: <strong>{summary.to}</strong></li>
+                <li>From: <strong>{summary.from} ({accountEmails[summary.from as keyof typeof accountEmails]})</strong></li>
+                <li>To: <strong>{summary.to} ({accountEmails[summary.to as keyof typeof accountEmails]})</strong></li>
                 <li>Playlists: <strong>{summary.playlists.join(', ') || '—'}</strong></li>
               </ul>
             </div>
