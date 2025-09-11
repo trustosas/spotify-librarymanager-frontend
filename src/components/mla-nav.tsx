@@ -33,7 +33,6 @@ const MlaNav = () => {
             className="hidden sm:inline-flex border-brand text-brand hover:bg-brand/10">
             <a href="#demo">Live Demo</a>
           </Button>
-          <Button className="bg-brand text-black hover:bg-brand/90">Start free</Button>
           <Link
             href="/settings"
             aria-label="Settings"
