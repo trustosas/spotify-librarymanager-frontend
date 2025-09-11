@@ -240,7 +240,7 @@ function Pricing() {
             <ul className="grid gap-2 text-sm">
               <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Unlimited transfers</li>
               <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Unlimited synced playlists</li>
-              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Email support</li>
+              <li className="inline-flex items-center gap-2"><Check className="text-brand size-4"/> Support via GitHub Issues</li>
             </ul>
           </CardContent>
           <CardFooter>
